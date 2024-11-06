@@ -1,19 +1,13 @@
-import Image from "next/image";
+import Details from "@/components/Details";
 
 export default function Home() {
   return (
-    <>
-      <div className="text-center">
-        <h3 className="text-3xl font-bold translate-y-64 bg-teal-600 text-white inline-block p-5 rounded-3xl w-[40%]">This is CRUD in Next JS</h3>
+    <div className="pt-24">
+      <div className="text-center rounded-full border-violet-600 border-2 flex flex-col items-center w-[80%] mx-auto p-24">
+        <h3 className="text-3xl font-bold bg-teal-600 text-black inline-block p-5 rounded-3xl w-[40%] mb-20">This is CRUD in Next JS</h3>
+        <Details />
       </div>
-    </>
+    </div>
   );
 }
 
-
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/Shakib-Shajid/next_crud.git
-git push -u origin main
