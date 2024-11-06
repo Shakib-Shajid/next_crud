@@ -4,7 +4,7 @@ const page = () => {
     return (
         <div className='pt-32'>
             <div className='w-[30%] mx-auto text-center space-y-5 border-2 p-20 rounded-3xl'>
-                <h3 className='text-xl font-bold text-white p-2 rounded-3xl bg-blue-600'>Update</h3>
+                <h3 className='text-xl font-bold text-white p-2 rounded-3xl bg-info'>Update</h3>
 
                 <label className="input input-bordered flex items-center gap-2 text-black">
                     Name
