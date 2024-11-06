@@ -19,3 +19,19 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+
+
+/* styles/globals.css */
+.bg-hover-slow-transition {
+  background: linear-gradient(to right, teal 50%, white 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: background-position 2s ease;
+}
+
+.bg-hover-slow-transition:hover {
+  background-position: left bottom;
+  color: black;
+}
