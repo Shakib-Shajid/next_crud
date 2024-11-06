@@ -14,6 +14,10 @@ const page = () => {
                     Email
                     <input type="text" className="grow" placeholder="daisy@site.com" />
                 </label>
+                <label className="input input-bordered flex items-center gap-2 text-black">
+                    Password
+                    <input type="password" className="grow" placeholder="Password" />
+                </label>
 
                 <button className='btn w-full btn-info'>Update</button>
             </div>

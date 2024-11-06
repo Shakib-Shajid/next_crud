@@ -14,7 +14,6 @@ const page = () => {
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Password</th>
-                                <th className='text-red-800'>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -24,7 +23,6 @@ const page = () => {
                                 <td>user1</td>
                                 <td>user1@gmail.com</td>
                                 <td>123456</td>
-                                <td className='btn btn-ghost pl-7 text-red-800'>X</td>
                             </tr>
                             {/* row 2 */}
                             <tr>
@@ -32,7 +30,6 @@ const page = () => {
                                 <td>user2</td>
                                 <td>user2@gmail.com</td>
                                 <td>654321</td>
-                                <td className='btn btn-ghost pl-7 text-red-800'>X</td>
                             </tr>
                             {/* row 3 */}
                             <tr>
@@ -40,7 +37,6 @@ const page = () => {
                                 <td>user3</td>
                                 <td>user3@gmail.com</td>
                                 <td>123654</td>
-                                <td className='btn btn-ghost pl-7 text-red-800'>X</td>
                             </tr>
                         </tbody>
                     </table>
