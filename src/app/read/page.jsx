@@ -1,15 +1,10 @@
-"use client"
-import React, { useEffect, useState } from 'react';
 
-const page = () => {
+import getAllPosts from '@/lib/getAllPost';
+import React from 'react';
 
-    const [users, setUsers] = useState([]);
-    useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(res => res.json())
-            .then(data => setUsers(data))
-    }, [])
+const users = await getAllPosts();
 
+const page = async () => {
     return (
         <div className='pt-5'>
             <div className='w-[50%] mx-auto text-center space-y-5 border-2 p-10 rounded-3xl'>
