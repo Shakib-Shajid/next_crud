@@ -29,7 +29,7 @@ const users = await getAllPosts();
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
                                         <td>{user.address.zipcode}</td>
-                                        <td className='btn btn-ghost pl-7 text-red-800'>X</td>
+                                        <td className='btn btn-ghost pl-7 text-red-800'><Link href={`/delete/${user.id}`}>X</Link></td>
                                     </tr>
                                 )
                             }
