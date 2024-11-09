@@ -1,4 +1,5 @@
 import getAllPosts from "@/lib/getAllPost";
+import Link from "next/link";
 
 const page = async() => {
 
