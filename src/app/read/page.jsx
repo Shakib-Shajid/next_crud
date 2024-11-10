@@ -1,10 +1,20 @@
 
-import getAllPosts from '@/lib/getAllPost';
+// import getAllPosts from '@/lib/getAllPost';
 import React from 'react';
 
-const users = await getAllPosts();
+// const users = getAllPosts();
+
+const getUsers = async () => {
+    const res = await fetch('http://localhost:3000/read/api')
+    const users = res.json()
+    return users;
+}
+
 
 const page = async () => {
+
+    const {users} = await getUsers();
+
     return (
         <div className='pt-5'>
             <div className='w-[50%] mx-auto text-center space-y-5 border-2 p-10 rounded-3xl'>
@@ -21,14 +31,13 @@ const page = async () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* row 1 */}
                             {
                                 users.map((user, index) =>
                                     <tr key={user.id}>
                                         <td>{index + 1}</td>
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
-                                        <td>{user.address.zipcode}</td>
+                                        <td>{user.password}</td>
                                     </tr>
                                 )
                             }
