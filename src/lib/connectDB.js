@@ -1,3 +1,5 @@
+import { MongoClient, ServerApiVersion } from "mongodb";
+
 let db;
 export const connectDB = async () => {
     if (db) return db;
@@ -11,11 +13,11 @@ export const connectDB = async () => {
             }
         });
 
-        db = client.db('crud_next');
+        db = client.db('crud-next');
         return db;
 
     } catch (error) {
-        console.log(error);
+        console.log({error});
 
     }
 }
