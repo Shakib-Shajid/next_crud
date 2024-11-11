@@ -21,7 +21,8 @@ const Page = () => {
             method: "DELETE",
         });
         if (response.ok) {
-            setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
+            // setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
+            fetchData();
         }
 
     }; 
