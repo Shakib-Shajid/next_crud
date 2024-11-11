@@ -1,78 +1,44 @@
-// import { connectDB } from "@/lib/connectDB"
-// import { ObjectId } from "mongodb";
-// import { NextResponse } from "next/server";
-
-// export const GET = async(requst, {params})=>{
-//     const db = await connectDB();
-//     const getUser = db.collection('create');
-    
-//     try {
-
-//         const getInfo = await getUser.findOne({_id: new ObjectId(params.id)})
-//         return NextResponse.json(getInfo);
-//         } catch (error) {
-//           return NextResponse.json({ message: "Something Went Wrong" });
-//         }
-// }
-
-
-
-
-
-
-// export const PATCH = async (request, { params }) => {
-//     const db = await connectDB();
-//     const bookingsCollection = db.collection("create");
-//     const updateDoc = await request.json();
-//     try {
-//       const resp = await bookingsCollection.updateOne(
-//         { _id: new ObjectId(params.id) },
-//         {
-//           $set: {
-//             ...updateDoc
-//           },
-//         },
-//         {
-//           upsert : true
-//         }
-//       );
-//       return NextResponse.json({ message: "updated the booking", response: resp });
-//     } catch (error) {
-//       return NextResponse.json({ message: "Something Went Wrong" });
-//     }
-//   };
-
-
-
-import { connectDB } from "@/lib/connectDB";
+import { connectDB } from "@/lib/connectDB"
 import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 
-export const GET = async (request, { params }) => {
+export const GET = async(requst, {params})=>{
     const db = await connectDB();
     const getUser = db.collection('create');
 
     try {
-        const getInfo = await getUser.findOne({ _id: new ObjectId(params.id) });
+
+        const getInfo = await getUser.findOne({_id: new ObjectId(params.id)})
         return NextResponse.json(getInfo);
-    } catch (error) {
-        return NextResponse.json({ message: "Something Went Wrong" });
-    }
-};
+        } catch (error) {
+          return NextResponse.json({ message: "Something Went Wrong" });
+        }
+}
+
+
+
+
+
 
 export const PATCH = async (request, { params }) => {
     const db = await connectDB();
     const bookingsCollection = db.collection("create");
     const updateDoc = await request.json();
-
     try {
-        const resp = await bookingsCollection.updateOne(
-            { _id: new ObjectId(params.id) },
-            { $set: { ...updateDoc } },
-            { upsert: true }
-        );
-        return NextResponse.json({ message: "User updated successfully", response: resp });
+      const resp = await bookingsCollection.updateOne(
+        { _id: new ObjectId(params.id) },
+        {
+          $set: {
+            ...updateDoc
+          },
+        },
+        {
+          upsert : true
+        }
+      );
+      return NextResponse.json({ message: "updated the booking", response: resp });
     } catch (error) {
-        return NextResponse.json({ message: "Something Went Wrong", error: error.message });
+      return NextResponse.json({ message: "Something Went Wrong" });
     }
-};
+  };
+
