@@ -1,19 +1,12 @@
 
-// import getAllPosts from '@/lib/getAllPost';
+import getAllPosts from '@/lib/getAllPost';
 import React from 'react';
 
 // const users = getAllPosts();
 
-const getUsers = async () => {
-    const res = await fetch('http://localhost:3000/read/api')
-    const users = res.json()
-    return users;
-}
-
-
 const page = async () => {
 
-    const {users} = await getUsers();
+    const {users} = await getAllPosts();
 
     return (
         <div className='pt-5'>
