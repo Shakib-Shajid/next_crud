@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 // const users = getAllPosts();
 
-const page = () => {
+const Page = () => {
 
     const [users, setUsers] = useState([]);
 
@@ -73,4 +73,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;

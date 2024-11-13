@@ -17,9 +17,6 @@ export const GET = async(requst, {params})=>{
 
 
 
-
-
-
 export const PATCH = async (request, { params }) => {
     const db = await connectDB();
     const bookingsCollection = db.collection("create");

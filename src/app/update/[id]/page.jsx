@@ -1,45 +1,36 @@
 "use client";
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 
-const Page = ({ params }) => {
+const Page = () => {
     const [user, setUser] = useState([]);
-    const [para, setPara] = useState(null);
+    const params = useParams();
+    console.log(params.id);
+
+
 
     useEffect(() => {
-        const paramsId = async () => {
-            // Await the resolution of params to extract the ID
-            const getId = await params;
-            setPara(getId.id); // Now you have access to the actual ID value
-        };
-
-        paramsId();
-
-    }, [params]);
-
-    useEffect(() => {
-        if (para) {
             const loadUser = async () => {
-                const response = await fetch(`http://localhost:3000/read/api/getOne/${para}`);
+                const response = await fetch(`http://localhost:3000/read/api/getOne/${params.id}`);
                 const data = await response.json();
                 setUser(data);
             };
             loadUser();
-        }
-    }, [para]);
+        }, []);
 
-    const handleUpdate = event => {
+    const handleUpdate = (event) => {
         event.preventDefault();
         const updateInfo = {
             name: event.target.name.value,
             email: event.target.email.value,
-            password: event.target.password.value
-        }
+            password: event.target.password.value,
+        };
 
-        axios.patch(`http://localhost:3000/read/api/getOne/${para}`, updateInfo)
-        .then(res => console.log(res))
-        .catch(error => console.log(error))
-    }
+        axios.patch(`http://localhost:3000/read/api/getOne/${params.id}`, updateInfo)
+            .then((res) => console.log(res))
+            .catch((error) => console.log(error));
+    };
 
     return (
         <div className="pt-32">
