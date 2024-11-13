@@ -6,18 +6,16 @@ import { useParams } from 'next/navigation';
 const Page = () => {
     const [user, setUser] = useState([]);
     const params = useParams();
-    console.log(params.id);
-
 
 
     useEffect(() => {
-            const loadUser = async () => {
-                const response = await fetch(`http://localhost:3000/read/api/getOne/${params.id}`);
-                const data = await response.json();
-                setUser(data);
-            };
-            loadUser();
-        }, []);
+        const loadUser = async () => {
+            const response = await fetch(`http://localhost:3000/read/api/getOne/${params.id}`);
+            const data = await response.json();
+            setUser(data);
+        };
+        loadUser();
+    }, [params]);
 
     const handleUpdate = (event) => {
         event.preventDefault();
