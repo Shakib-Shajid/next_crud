@@ -12,7 +12,7 @@ const page = () => {
             email: event.target.email.value,
             password: event.target.password.value,
         }
-
+ 
         axios.post('http://localhost:3000/create/api', newCreate)
             .then(res => console.log(res))
             .catch(error => console.log(error))
