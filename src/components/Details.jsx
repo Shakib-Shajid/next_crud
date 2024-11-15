@@ -65,9 +65,9 @@ const Details = () => {
 
     return (
         <div>
-            <div className="flex gap-10 justify-center">
+            <div className="flex flex-col lg:flex-row gap-10 justify-center">
                 {/* Create Card */}
-                <div className='text-center border-2 p-20 space-y-5 rounded-3xl'>
+                <div className='w-full md:w-[65%] lg:w-[31%] md:mx-auto lg:mx-0 text-center border-2 p-20 space-y-5 rounded-3xl'>
                     <h3 className='text-xl font-bold text-black p-2 rounded-3xl bg-green-600'>Create</h3>
                     <form onSubmit={handleCreate} className='space-y-5'>
                         <label className="input input-bordered flex items-center gap-2 text-black">
@@ -87,7 +87,7 @@ const Details = () => {
                 </div>
 
                 {/* Update Card */}
-                <div className="text-center space-y-5 border-2 p-20 rounded-3xl">
+                <div className="w-full md:w-[65%] lg:w-[31%] md:mx-auto lg:mx-0 text-center space-y-5 border-2 p-20 rounded-3xl">
                     <h3 className="text-xl font-bold text-white p-2 rounded-3xl bg-info">Update</h3>
                     <form onSubmit={handleUpdate} className="space-y-5">
                         <label className="input input-bordered flex items-center gap-2 text-black">
@@ -126,7 +126,7 @@ const Details = () => {
             </div>
 
             {/* Table */}
-            <div className='pt-5 w-[50%] mx-auto'>
+            <div className='pt-5 md:w-[65%] mx-auto'>
                 <div className='text-center space-y-5 border-2 p-10 rounded-3xl'>
                     <div className="overflow-x-auto">
                         <table className="table text-base">
