@@ -32,6 +32,9 @@ const Page = () => {
 
     };
 
+
+
+
     return (
         <div className='pt-5'>
             <div className='w-[50%] mx-auto text-center space-y-5 border-2 p-10 rounded-3xl'>
@@ -69,6 +72,8 @@ const Page = () => {
                     </table>
                 </div>
             </div>
+
+            
         </div>
     );
 };

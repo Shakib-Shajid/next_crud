@@ -1,36 +1,31 @@
+"use client"
 
-"use client";
-import getAllPosts from "@/lib/getAllPost";
-import axios from "axios";
-import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-
-// const users = getAllPosts();
+import axios from "axios";
+import getAllPosts from "@/lib/getAllPost";
 
 const Details = () => {
-
     const [users, setUsers] = useState([]);
+    const [user, setUser] = useState({});
+    const params = useParams();
 
     const fetchData = async () => {
         const { users } = await getAllPosts();
         setUsers(users);
     };
 
-
     useEffect(() => {
         fetchData();
     }, []);
 
     const handleDelete = async (id) => {
-
         const response = await fetch(`http://localhost:3000/delete/api/${id}`, {
             method: "DELETE",
         });
         if (response.ok) {
-            // setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
             fetchData();
         }
-
     };
 
     const handleCreate = async (event) => {
@@ -40,25 +35,107 @@ const Details = () => {
             name: event.target.name.value,
             email: event.target.email.value,
             password: event.target.password.value,
-        }
+        };
 
         axios.post('http://localhost:3000/create/api', newCreate)
-            .then(res => console.log(res))
-            .catch(error => console.log(error))
-    }
+            .then(res =>
+                console.log(res)
+            )
+            .catch(error => console.log(error));
+    };
 
+    const handleEdit = (selectedUser) => {
+        setUser(selectedUser); // Populate the Update card with selected user's data
+    };
+
+    const handleUpdate = async (event) => {
+        event.preventDefault();
+        const updateInfo = {
+            name: event.target.name.value,
+            email: event.target.email.value,
+            password: event.target.password.value,
+        };
+
+        axios.patch(`http://localhost:3000/read/api/getOne/${user._id}`, updateInfo)
+            .then((res) =>
+                console.log(res)
+            )
+            .catch((error) => console.log(error));
+    };
 
     return (
-        <div className="flex gap-10 flex-col md:flex-row items-center">
+        <div>
+            <div className="flex gap-10 justify-center">
+                {/* Create Card */}
+                <div className='text-center border-2 p-20 space-y-5 rounded-3xl'>
+                    <h3 className='text-xl font-bold text-black p-2 rounded-3xl bg-green-600'>Create</h3>
+                    <form onSubmit={handleCreate} className='space-y-5'>
+                        <label className="input input-bordered flex items-center gap-2 text-black">
+                            Name
+                            <input type="text" className="grow" placeholder="Daisy" name="name" />
+                        </label>
+                        <label className="input input-bordered flex items-center gap-2 text-black">
+                            Email
+                            <input type="email" className="grow" placeholder="daisy@site.com" name="email" />
+                        </label>
+                        <label className="input input-bordered flex items-center gap-2 text-black">
+                            Password
+                            <input type="password" className="grow" placeholder="Password" name="password" />
+                        </label>
+                        <button className='btn w-full btn-success'>Create</button>
+                    </form>
+                </div>
+
+                {/* Update Card */}
+                <div className="text-center space-y-5 border-2 p-20 rounded-3xl">
+                    <h3 className="text-xl font-bold text-white p-2 rounded-3xl bg-info">Update</h3>
+                    <form onSubmit={handleUpdate} className="space-y-5">
+                        <label className="input input-bordered flex items-center gap-2 text-black">
+                            Name
+                            <input
+                                type="text"
+                                className="grow"
+                                defaultValue={user.name || ""}
+                                placeholder="Daisy"
+                                name="name"
+                            />
+                        </label>
+                        <label className="input input-bordered flex items-center gap-2 text-black">
+                            Email
+                            <input
+                                type="email"
+                                className="grow"
+                                defaultValue={user.email || ""}
+                                placeholder="daisy@site.com"
+                                name="email"
+                            />
+                        </label>
+                        <label className="input input-bordered flex items-center gap-2 text-black">
+                            Password
+                            <input
+                                type="password"
+                                className="grow"
+                                defaultValue={user.password || ""}
+                                placeholder="Password"
+                                name="password"
+                            />
+                        </label>
+                        <button className="btn w-full btn-info">Update</button>
+                    </form>
+                </div>
+            </div>
+
+            {/* Table */}
             <div className='pt-5 w-[50%] mx-auto'>
                 <div className='text-center space-y-5 border-2 p-10 rounded-3xl'>
                     <div className="overflow-x-auto">
                         <table className="table text-base">
-                            <caption className='text-xl font-bold text-black p-2 rounded-xl bg-warning mb-5 w-[50%] mx-auto'>Read: {users.length}</caption>
-                            {/* head */}
+                            <caption className='text-xl font-bold text-black p-2 rounded-xl bg-warning mb-5 w-[50%] mx-auto'>
+                                Read: {users.length}
+                            </caption>
                             <thead className='text-white'>
                                 <tr>
-                                    <th></th>
+                                    <th>#</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Password</th>
@@ -73,10 +150,15 @@ const Details = () => {
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
                                         <td>{user.password}</td>
-                                        <td><Link href={`/update/${user._id}`}>Edit</Link></td>
+                                        <td
+                                            onClick={() => handleEdit(user)}
+                                            className="text-blue-800 cursor-pointer text-lg"
+                                        >
+                                            Edit
+                                        </td>
                                         <td
                                             onClick={() => handleDelete(user._id)}
-                                            className="btn btn-ghost pl-7 text-red-800 cursor-pointer text-lg"
+                                            className="pl-7 text-red-800 cursor-pointer text-lg"
                                         >
                                             X
                                         </td>
@@ -86,32 +168,6 @@ const Details = () => {
                         </table>
                     </div>
                 </div>
-            </div>
-
-
-
-
-
-
-            <div className='text-center border-2 p-20 space-y-5 rounded-3xl w-[30%] mx-auto'>
-                <h3 className='text-xl font-bold text-black p-2 rounded-3xl bg-green-600'>Create</h3>
-
-                <form onSubmit={handleCreate} className='space-y-5'>
-                    <label className="input input-bordered flex items-center gap-2 text-black">
-                        Name
-                        <input type="text" className="grow" placeholder="Daisy" name="name" />
-                    </label>
-                    <label className="input input-bordered flex items-center gap-2 text-black">
-                        Email
-                        <input type="email" className="grow" placeholder="daisy@site.com" name="email" />
-                    </label>
-                    <label className="input input-bordered flex items-center gap-2 text-black">
-                        Password
-                        <input type="password" className="grow" placeholder="Password" name="password" />
-                    </label>
-                    <button className='btn w-full btn-success'>Create</button>
-                </form>
-
             </div>
         </div>
     );
