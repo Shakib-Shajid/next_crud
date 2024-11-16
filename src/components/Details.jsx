@@ -10,24 +10,10 @@ const Details = () => {
     const [user, setUser] = useState({});
     const params = useParams();
 
-    const fetchData = async () => {
-        const { users } = await getAllPosts();
-        setUsers(users);
-    };
+    // ....................................................................................................
 
-    useEffect(() => {
-        fetchData();
-    }, []);
 
-    const handleDelete = async (id) => {
-        const response = await fetch(`http://localhost:3000/delete/api/${id}`, {
-            method: "DELETE",
-        });
-        if (response.ok) {
-            fetchData();
-        }
-    };
-
+    // create
     const handleCreate = async (event) => {
         event.preventDefault();
 
@@ -39,11 +25,31 @@ const Details = () => {
 
         axios.post('http://localhost:3000/create/api', newCreate)
             .then(res =>
-                console.log(res)
+                {
+                    window.location.reload();
+                    console.log(res)
+                }
             )
             .catch(error => console.log(error));
     };
 
+    // ....................................................................................................
+
+    // read
+    const fetchData = async () => {
+        const { users } = await getAllPosts();
+        setUsers(users);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+
+    // ....................................................................................................
+
+
+    // update
     const handleEdit = (selectedUser) => {
         setUser(selectedUser); // Populate the Update card with selected user's data
     };
@@ -57,15 +63,34 @@ const Details = () => {
         };
 
         axios.patch(`http://localhost:3000/read/api/getOne/${user._id}`, updateInfo)
-            .then((res) =>
-                console.log(res)
+            .then((res) => {
+                {
+                    window.location.reload();
+                    console.log(res)
+                }
+            }
             )
             .catch((error) => console.log(error));
+    };
+
+
+    // ....................................................................................................
+
+
+    // delete
+    const handleDelete = async (id) => {
+        const response = await fetch(`http://localhost:3000/delete/api/${id}`, {
+            method: "DELETE",
+        });
+        if (response.ok) {
+            fetchData();
+        }
     };
 
     return (
         <div>
             <div className="flex flex-col lg:flex-row gap-10 justify-center">
+
                 {/* Create Card */}
                 <div className='w-full md:w-[65%] lg:w-[31%] md:mx-auto lg:mx-0 text-center border-2 p-20 space-y-5 rounded-3xl'>
                     <h3 className='text-xl font-bold text-black p-2 rounded-3xl bg-green-600'>Create</h3>
@@ -125,7 +150,7 @@ const Details = () => {
                 </div>
             </div>
 
-            {/* Table */}
+            {/* read */}
             <div className='pt-5 md:w-[65%] mx-auto'>
                 <div className='text-center space-y-5 border-2 p-10 rounded-3xl'>
                     <div className="overflow-x-auto">
