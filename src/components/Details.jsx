@@ -26,6 +26,7 @@ const Details = () => {
         axios.post('http://localhost:3000/create/api', newCreate)
             .then(res => {
                 // window.location.reload();
+                fetchData();
                 console.log(res)
             }
             )
@@ -66,6 +67,7 @@ const Details = () => {
             .then((res) => {
                 {
                     // window.location.reload();
+                    fetchData();
                     console.log(res)
                 }
             }
