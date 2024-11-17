@@ -16,6 +16,7 @@ const Details = () => {
     // create
     const handleCreate = async (event) => {
         event.preventDefault();
+        const form = event.target;
 
         const newCreate = {
             name: event.target.name.value,
@@ -26,6 +27,9 @@ const Details = () => {
         axios.post('http://localhost:3000/create/api', newCreate)
             .then(res => {
                 // window.location.reload();
+                form.name.value = "";
+                form.email.value = "";
+                form.password.value = "";
                 fetchData();
                 console.log(res)
             }
@@ -56,6 +60,7 @@ const Details = () => {
 
     const handleUpdate = async (event) => {
         event.preventDefault();
+
         const form = event.target;
         const updateInfo = {
             name: event.target.name.value,
@@ -67,6 +72,9 @@ const Details = () => {
             .then((res) => {
                 {
                     // window.location.reload();
+                    form.name.value = "";
+                    form.email.value = "";
+                    form.password.value = "";
                     fetchData();
                     console.log(res)
                 }
