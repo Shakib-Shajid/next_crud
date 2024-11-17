@@ -24,11 +24,10 @@ const Details = () => {
         };
 
         axios.post('http://localhost:3000/create/api', newCreate)
-            .then(res =>
-                {
-                    window.location.reload();
-                    console.log(res)
-                }
+            .then(res => {
+                // window.location.reload();
+                console.log(res)
+            }
             )
             .catch(error => console.log(error));
     };
@@ -56,6 +55,7 @@ const Details = () => {
 
     const handleUpdate = async (event) => {
         event.preventDefault();
+        const form = event.target;
         const updateInfo = {
             name: event.target.name.value,
             email: event.target.email.value,
@@ -65,7 +65,7 @@ const Details = () => {
         axios.patch(`http://localhost:3000/read/api/getOne/${user._id}`, updateInfo)
             .then((res) => {
                 {
-                    window.location.reload();
+                    // window.location.reload();
                     console.log(res)
                 }
             }
@@ -73,18 +73,37 @@ const Details = () => {
             .catch((error) => console.log(error));
     };
 
+    // try {
+    //     const res = await axios.patch(`http://localhost:3000/read/api/getOne/${user._id}`, updateInfo);
+    //     console.log(res);
+
+    //     // Fetch the updated data
+    //     fetchData();
+    // } catch (error) {
+    //     console.error(error);
+    // }
+
 
     // ....................................................................................................
 
 
     // delete
+
+
     const handleDelete = async (id) => {
-        const response = await fetch(`http://localhost:3000/delete/api/${id}`, {
-            method: "DELETE",
-        });
-        if (response.ok) {
-            fetchData();
-        }
+        // const response = await fetch(`http://localhost:3000/delete/api/${id}`, {
+        //     method: "DELETE",
+        // });
+        // if (response.ok) {
+        //     fetchData();
+        // }
+
+        axios.delete(`http://localhost:3000/delete/api/${id}`)
+            .then(res => {
+                fetchData();
+                console.log(res)
+            })
+            .catch(error => console.log(error))
     };
 
     return (
