@@ -8,6 +8,7 @@ import getAllPosts from "@/lib/getAllPost";
 const Details = () => {
     const [users, setUsers] = useState([]);
     const [user, setUser] = useState({});
+    const [isUpdate, setIsUpdate] = useState(false)
     const params = useParams();
 
     // ....................................................................................................
@@ -56,6 +57,7 @@ const Details = () => {
     // update
     const handleEdit = (selectedUser) => {
         setUser(selectedUser); // Populate the Update card with selected user's data
+        setIsUpdate(true)
     };
 
     const handleUpdate = async (event) => {
@@ -75,6 +77,7 @@ const Details = () => {
                     form.name.value = "";
                     form.email.value = "";
                     form.password.value = "";
+                    setIsUpdate(false)
                     fetchData();
                     console.log(res)
                 }
@@ -121,62 +124,69 @@ const Details = () => {
             <div className="flex flex-col lg:flex-row gap-10 justify-center">
 
                 {/* Create Card */}
-                <div className='w-full md:w-[65%] lg:w-[31%] md:mx-auto lg:mx-0 text-center border-2 p-20 space-y-5 rounded-3xl'>
-                    <h3 className='text-xl font-bold text-black p-2 rounded-3xl bg-green-600'>Create</h3>
-                    <form onSubmit={handleCreate} className='space-y-5'>
-                        <label className="input input-bordered flex items-center gap-2 text-black">
-                            Name
-                            <input type="text" className="grow" placeholder="Daisy" name="name" />
-                        </label>
-                        <label className="input input-bordered flex items-center gap-2 text-black">
-                            Email
-                            <input type="email" className="grow" placeholder="daisy@site.com" name="email" />
-                        </label>
-                        <label className="input input-bordered flex items-center gap-2 text-black">
-                            Password
-                            <input type="password" className="grow" placeholder="Password" name="password" />
-                        </label>
-                        <button className='btn w-full btn-success'>Create</button>
-                    </form>
-                </div>
-
+                {
+                    !isUpdate &&
+                    <div className='w-full md:w-[65%] lg:w-[31%] md:mx-auto lg:mx-0 text-center border-2 p-20 space-y-5 rounded-3xl'>
+                        <h3 className='text-xl font-bold text-black p-2 rounded-3xl bg-green-600'>Create</h3>
+                        <form onSubmit={handleCreate} className='space-y-5'>
+                            <label className="input input-bordered flex items-center gap-2 text-black">
+                                Name
+                                <input type="text" className="grow" placeholder="Daisy" name="name" />
+                            </label>
+                            <label className="input input-bordered flex items-center gap-2 text-black">
+                                Email
+                                <input type="email" className="grow" placeholder="daisy@site.com" name="email" />
+                            </label>
+                            <label className="input input-bordered flex items-center gap-2 text-black">
+                                Password
+                                <input type="password" className="grow" placeholder="Password" name="password" />
+                            </label>
+                            <button className='btn w-full btn-success'>Create</button>
+                        </form>
+                    </div>
+                }
                 {/* Update Card */}
-                <div className="w-full md:w-[65%] lg:w-[31%] md:mx-auto lg:mx-0 text-center space-y-5 border-2 p-20 rounded-3xl">
-                    <h3 className="text-xl font-bold text-white p-2 rounded-3xl bg-info">Update</h3>
-                    <form onSubmit={handleUpdate} className="space-y-5">
-                        <label className="input input-bordered flex items-center gap-2 text-black">
-                            Name
-                            <input
-                                type="text"
-                                className="grow"
-                                defaultValue={user.name || ""}
-                                placeholder="Daisy"
-                                name="name"
-                            />
-                        </label>
-                        <label className="input input-bordered flex items-center gap-2 text-black">
-                            Email
-                            <input
-                                type="email"
-                                className="grow"
-                                defaultValue={user.email || ""}
-                                placeholder="daisy@site.com"
-                                name="email"
-                            />
-                        </label>
-                        <label className="input input-bordered flex items-center gap-2 text-black">
-                            Password
-                            <input
-                                type="password"
-                                className="grow"
-                                defaultValue={user.password || ""}
-                                placeholder="Password"
-                                name="password"
-                            />
-                        </label>
-                        <button className="btn w-full btn-info">Update</button>
-                    </form>
-                </div>
+                {
+                    isUpdate &&
+
+                    <div className="w-full md:w-[65%] lg:w-[31%] md:mx-auto lg:mx-0 text-center space-y-5 border-2 p-20 rounded-3xl">
+                        <h3 className="text-xl font-bold text-white p-2 rounded-3xl bg-info">Update</h3>
+                        <form onSubmit={handleUpdate} className="space-y-5">
+                            <label className="input input-bordered flex items-center gap-2 text-black">
+                                Name
+                                <input
+                                    type="text"
+                                    className="grow"
+                                    defaultValue={user.name || ""}
+                                    placeholder="Daisy"
+                                    name="name"
+                                />
+                            </label>
+                            <label className="input input-bordered flex items-center gap-2 text-black">
+                                Email
+                                <input
+                                    type="email"
+                                    className="grow"
+                                    defaultValue={user.email || ""}
+                                    placeholder="daisy@site.com"
+                                    name="email"
+                                />
+                            </label>
+                            <label className="input input-bordered flex items-center gap-2 text-black">
+                                Password
+                                <input
+                                    type="password"
+                                    className="grow"
+                                    defaultValue={user.password || ""}
+                                    placeholder="Password"
+                                    name="password"
+                                />
+                            </label>
+                            <button className="btn w-full btn-info">Update</button>
+                            <button className="btn w-full btn-ghosh" onClick={()=>setIsUpdate(false)}>Cancel</button>
+                        </form>
+                    </div>
+                }
             </div>
 
             {/* read */}
